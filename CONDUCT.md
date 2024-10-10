@@ -72,3 +72,4 @@ Community Impact: Demonstrating a pattern of violation of community standards, i
 Consequence: A permanent ban from any sort of public interaction within the community.
 
 ![Jason's signature](src/IMG_8940.jpeg)
+![Gina's Signature](src/Gina_Vincent_Signature.png)
