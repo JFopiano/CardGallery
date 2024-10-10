@@ -73,3 +73,5 @@ Consequence: A permanent ban from any sort of public interaction within the comm
 
 ![Jason's signature](src/IMG_8940.jpeg)
 ![Gina's Signature](src/Gina_Vincent_Signature.png)
+
+![Daniel's signature](/src/danielhsig.jpg)
