@@ -12,3 +12,8 @@
 - Most potential users are not currently collecting cards but are interested in learning more.
 - From the 26 respondents who answered the question, “How long have you been a card collector?”, 16 of them (~61.5%) replied “Not a collector, but interested.”
 - Focus on newer users, people who are inexperienced with card collecting; streamline the process, provide resources for newbies
+
+# Observation 4 (Gina)
+- Magic: The Gathering was a common selection among people who answered the survey, it has been around for 31 years, making it the oldest collectors car game
+- About 30% of our users selected Magic: The Gathering, some only selected Magic, some selected Magic and other cards
+- This will mean card game with the most data that we will be supporting for our user on our app is Magic: The Gathering
