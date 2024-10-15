@@ -4,6 +4,6 @@
 - Bridge the gap for the needs for our users who are either not a collector or are collectors to have a digital collection of their cards
 
 # Observation 2 (Daniel)
--A large portion of users state that they collect pokemon cards
--Of 28 respondents 13  stated that they are interested in pokemon cards
--Make sure that the pokemon aspects of the app are a priority 
+- A large portion of users state that they collect pokemon cards
+- Of 28 respondents 13  stated that they are interested in pokemon cards
+- Make sure that the pokemon aspects of the app are a priority 
