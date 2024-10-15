@@ -7,3 +7,8 @@
 - A large portion of users state that they collect pokemon cards
 - Of 28 respondents 13  stated that they are interested in pokemon cards
 - Make sure that the pokemon aspects of the app are a priority 
+
+# Observation 3 (Nat)
+- Most potential users are not currently collecting cards but are interested in learning more.
+- From the 26 respondents who answered the question, “How long have you been a card collector?”, 16 of them (~61.5%) replied “Not a collector, but interested.”
+- Focus on newer users, people who are inexperienced with card collecting; streamline the process, provide resources for newbies
