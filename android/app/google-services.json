@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694590994912",
+    "project_id": "card-gallery-assiok",
+    "storage_bucket": "card-gallery-assiok.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694590994912:android:834cf42761a425b1145385",
+        "android_client_info": {
+          "package_name": "com.mycompany.cardgallery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnDaJ2ZOGF2uFeFqMVnDBjV495IE6Bqi0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
