@@ -19,6 +19,32 @@ We will have half of our users have access to the pop up page and half of our us
 One variation will be our app with a separate page for user preferences (which kinds of cards they are intersted in) versus a pop up page with those same preferences. 
 
 
+
+# A/B Test: Placement of Add Card button
+
+## User Story 
+US4: Golden Path
+
+## Metrics 
+Engagement (button presses, click-through rate)
+
+##
+- How can we ensure the UI is user-friendly and has important functions at a comfortable and accessible location?
+- Our customers may value the feel of the app and want a UI with button placements that are quick to access and equally non-intrusive.
+- If important buttons and icons are in places that may hinder or inconvenience the experience, they may be turned away.
+- For example, if an important function such as adding a card to their collection, arguably the most crucial feature of the site, is accessed from an awkward button location, the app may be unsatisfying or frustrating to use.
+- We want to determine an optimal placement for this critical function's button to ensure the UX is smooth and comfortable.
+
+## Hypothesis 
+Putting the Add Card button directly on the page as opposed to an option on the bottom navbar would more strongly encourage adding cards and further interacting with the app.
+
+## Experiment 
+We will measure the number of times the Add Card button is clicked as well as the click-through rate of the process of adding cards to the user's collection. 50% of users will see the Add Card button on the bottom navbar, and the other half will see an Icon button in the corner of the screen which will remain "above" the contents of the page which will function as the Add Card button. We will create events for the Add Card button press as well as a successful card add via Google Analytics and compare how many times the events occurred.
+
+## Variations
+One variation will have the Add Card button on the bottom navbar and the other will have it as an Icon that is always present in the corner of the screen. 
+
+
 # A/B Test Name: API Search directly calling or having a cloud function on our firebase that will store its own verson of the json and send that to the users device
 
 ## User Story Number: 
