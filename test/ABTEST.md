@@ -65,3 +65,22 @@ We will have half of our users have access to the api being called by the user, 
 
 ## Variations: 
 One variation will be our app will directly call the api and the other will consult the json that it has saved locally
+
+
+# A/B Test Name: Preferences shown in Bio or not
+
+## User Stroy Number:
+Number 25: Preferences shown in Bio or not
+
+## Hypothesis:
+- The problem we are trying to solve is should the card preferences be displayed in the bio or not
+- For our customers, it might be optimal to have peoples preferences that they select on the register page to be displayed in their bio apart from what they can enter into after as a way to quickly find others who have the same preferences in their bio
+- To elaborate, customers may not be able to connect with people as easily if they don’t know other peoples preferences
+- For our main focus we will have the option to add preferences to the bio
+- For our hypothesis we can make preferences show up as a selectable hashtag
+
+## Experipemnt: 
+We will have half of our users have access to show preferences in their bios, and have another group who cannot show the preferences in their bio, and see who is able to connect with more people of the same card preferences.
+
+## Variations:
+One variation will be our app show the preferences as hashtags.
