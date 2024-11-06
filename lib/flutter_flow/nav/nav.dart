@@ -104,6 +104,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ProfileBio',
           path: '/profileBio',
           builder: (context, params) => const ProfileBioWidget(),
+        ),
+        FFRoute(
+          name: 'resultCards',
+          path: '/resultCards',
+          builder: (context, params) => ResultCardsWidget(
+            cardType: params.getParam(
+              'cardType',
+              ParamType.String,
+            ),
+            cardName: params.getParam(
+              'cardName',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'ProfileEditPage',
+          path: '/ProfileEditPage',
+          builder: (context, params) => const ProfileEditPageWidget(),
+        ),
+        FFRoute(
+          name: 'testGal',
+          path: '/testGal',
+          builder: (context, params) => const TestGalWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

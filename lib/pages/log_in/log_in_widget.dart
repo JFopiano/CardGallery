@@ -24,6 +24,7 @@ class _LogInWidgetState extends State<LogInWidget> {
     super.initState();
     _model = createModel(context, () => LogInModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'LogIn'});
     _model.loginEmailTextController ??= TextEditingController();
     _model.loginEmailFocusNode ??= FocusNode();
 
@@ -53,8 +54,41 @@ class _LogInWidgetState extends State<LogInWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'LOG_IN_PAGE_Icon_d2h414lj_ON_TAP');
+                            logFirebaseEvent('Icon_auth');
+                            GoRouter.of(context).prepareAuthEvent();
+                            await authManager.signOut();
+                            GoRouter.of(context).clearRedirectLocation();
+
+                            context.goNamedAuth('HomePage', context.mounted);
+                          },
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 40.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -99,7 +133,7 @@ class _LogInWidgetState extends State<LogInWidget> {
                                   useGoogleFonts:
                                       GoogleFonts.asMap().containsKey('Roboto'),
                                 ),
-                            hintText: 'Username...',
+                            hintText: 'Email...',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -247,8 +281,8 @@ class _LogInWidgetState extends State<LogInWidget> {
                   padding: const EdgeInsets.all(15.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamedAuth('ProfileBio', context.mounted);
-
+                      logFirebaseEvent('LOG_IN_PAGE_LOG_IN_BTN_ON_TAP');
+                      logFirebaseEvent('Button_auth');
                       GoRouter.of(context).prepareAuthEvent();
 
                       final user = await authManager.signInWithEmail(
@@ -259,6 +293,13 @@ class _LogInWidgetState extends State<LogInWidget> {
                       if (user == null) {
                         return;
                       }
+
+                      logFirebaseEvent('Button_navigate_to');
+
+                      context.pushNamedAuth('ProfileBio', context.mounted);
+
+                      logFirebaseEvent('Button_google_analytics_event');
+                      logFirebaseEvent('login2');
                     },
                     text: 'LOG IN',
                     options: FFButtonOptions(

@@ -10,7 +10,8 @@ Future initFirebase() async {
             projectId: "card-gallery-assiok",
             storageBucket: "card-gallery-assiok.appspot.com",
             messagingSenderId: "694590994912",
-            appId: "1:694590994912:web:2ce6937c9e646e02145385"));
+            appId: "1:694590994912:web:2ce6937c9e646e02145385",
+            measurementId: "G-SEC9Q7E1GN"));
   } else {
     await Firebase.initializeApp();
   }

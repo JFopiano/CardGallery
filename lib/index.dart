@@ -4,3 +4,7 @@ export '/pages/preferences/preferences_widget.dart' show PreferencesWidget;
 export '/pages/log_in/log_in_widget.dart' show LogInWidget;
 export '/pages/register/register_widget.dart' show RegisterWidget;
 export '/pages/profile_bio/profile_bio_widget.dart' show ProfileBioWidget;
+export '/result_cards/result_cards_widget.dart' show ResultCardsWidget;
+export '/pages/profile_edit_page/profile_edit_page_widget.dart'
+    show ProfileEditPageWidget;
+export '/test_gal/test_gal_widget.dart' show TestGalWidget;

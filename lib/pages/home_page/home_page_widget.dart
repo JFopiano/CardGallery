@@ -23,6 +23,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.initState();
     _model = createModel(context, () => HomePageModel());
 
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'HomePage'});
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -46,7 +47,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             decoration: const BoxDecoration(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(
                   alignment: const AlignmentDirectional(0.0, 0.0),
@@ -55,28 +56,32 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       opacity: 0.5,
                       child: Align(
                         alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/background.jpg',
-                                width: 397.0,
-                                height: 368.0,
-                                fit: BoxFit.cover,
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 1.0, 0.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/background.jpg',
+                                  width: double.infinity,
+                                  height: 350.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/background.jpg',
-                                width: 409.0,
-                                height: 314.0,
-                                fit: BoxFit.cover,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/background.jpg',
+                                  width: double.infinity,
+                                  height: 350.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -94,63 +99,84 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('LogIn');
-                      },
-                      text: 'LOG IN',
-                      options: FFButtonOptions(
-                        width: 170.0,
-                        height: 60.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondary,
-                        textStyle:
-                            FlutterFlowTheme.of(context).titleSmall.override(
-                                  fontFamily: 'Roboto',
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w900,
-                                  useGoogleFonts:
-                                      GoogleFonts.asMap().containsKey('Roboto'),
-                                ),
-                        elevation: 0.0,
-                        borderSide: BorderSide(
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent('HOME_PAGE_PAGE_LogIn_ON_TAP');
+                          logFirebaseEvent('LogIn_navigate_to');
+
+                          context.pushNamed('LogIn');
+
+                          logFirebaseEvent('LogIn_google_analytics_event');
+                          logFirebaseEvent(
+                            'login',
+                            parameters: {
+                              'login1': 'logbutton',
+                            },
+                          );
+                        },
+                        text: 'LOG IN',
+                        options: FFButtonOptions(
+                          width: 170.0,
+                          height: 60.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: FlutterFlowTheme.of(context).secondary,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: 'Roboto',
+                                color: FlutterFlowTheme.of(context).primary,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w900,
+                                useGoogleFonts:
+                                    GoogleFonts.asMap().containsKey('Roboto'),
+                              ),
+                          elevation: 0.0,
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.of(context).primary,
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                      FFButtonWidget(
+                        onPressed: () async {
+                          logFirebaseEvent('HOME_PAGE_PAGE_Register_ON_TAP');
+                          logFirebaseEvent('Register_navigate_to');
+
+                          context.pushNamed('Register');
+
+                          logFirebaseEvent('Register_google_analytics_event');
+                          logFirebaseEvent('register');
+                        },
+                        text: 'REGISTER',
+                        options: FFButtonOptions(
+                          width: 170.0,
+                          height: 60.0,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
                           color: FlutterFlowTheme.of(context).primary,
-                          width: 2.0,
+                          textStyle: GoogleFonts.getFont(
+                            'Roboto',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                          ),
+                          elevation: 0.0,
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                    ),
-                    FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('Register');
-                      },
-                      text: 'REGISTER',
-                      options: FFButtonOptions(
-                        width: 170.0,
-                        height: 60.0,
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).primary,
-                        textStyle: GoogleFonts.getFont(
-                          'Roboto',
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                        ),
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

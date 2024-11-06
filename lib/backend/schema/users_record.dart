@@ -65,6 +65,11 @@ class UsersRecord extends FirestoreRecord {
   bool get intrestedDragonBall => _intrestedDragonBall ?? false;
   bool hasIntrestedDragonBall() => _intrestedDragonBall != null;
 
+  // "bio" field.
+  String? _bio;
+  String get bio => _bio ?? '';
+  bool hasBio() => _bio != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -76,6 +81,7 @@ class UsersRecord extends FirestoreRecord {
     _intrestedOnepiece = snapshotData['intrested_onepiece'] as bool?;
     _intrestedMagic = snapshotData['intrested_magic'] as bool?;
     _intrestedDragonBall = snapshotData['intrested_dragon_ball'] as bool?;
+    _bio = snapshotData['bio'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -122,6 +128,7 @@ Map<String, dynamic> createUsersRecordData({
   bool? intrestedOnepiece,
   bool? intrestedMagic,
   bool? intrestedDragonBall,
+  String? bio,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +142,7 @@ Map<String, dynamic> createUsersRecordData({
       'intrested_onepiece': intrestedOnepiece,
       'intrested_magic': intrestedMagic,
       'intrested_dragon_ball': intrestedDragonBall,
+      'bio': bio,
     }.withoutNulls,
   );
 
@@ -155,7 +163,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.intrestedPokemon == e2?.intrestedPokemon &&
         e1?.intrestedOnepiece == e2?.intrestedOnepiece &&
         e1?.intrestedMagic == e2?.intrestedMagic &&
-        e1?.intrestedDragonBall == e2?.intrestedDragonBall;
+        e1?.intrestedDragonBall == e2?.intrestedDragonBall &&
+        e1?.bio == e2?.bio;
   }
 
   @override
@@ -169,7 +178,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.intrestedPokemon,
         e?.intrestedOnepiece,
         e?.intrestedMagic,
-        e?.intrestedDragonBall
+        e?.intrestedDragonBall,
+        e?.bio
       ]);
 
   @override
