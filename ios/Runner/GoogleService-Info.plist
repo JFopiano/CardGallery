@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mycompany.cardgallery</string>
+	<string>com.uricsc305.cardgallery</string>
 	<key>PROJECT_ID</key>
 	<string>card-gallery-assiok</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:694590994912:ios:824fce9fbfddaba9145385</string>
+	<string>1:694590994912:ios:95f11d36158d76e2145385</string>
 </dict>
 </plist>

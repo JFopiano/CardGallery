@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    super.reference,
-    super.data,
-  ) {
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
     _initializeFields();
   }
 
@@ -70,6 +71,56 @@ class UsersRecord extends FirestoreRecord {
   String get bio => _bio ?? '';
   bool hasBio() => _bio != null;
 
+  // "following_users" field.
+  List<DocumentReference>? _followingUsers;
+  List<DocumentReference> get followingUsers => _followingUsers ?? const [];
+  bool hasFollowingUsers() => _followingUsers != null;
+
+  // "users_following_me" field.
+  List<DocumentReference>? _usersFollowingMe;
+  List<DocumentReference> get usersFollowingMe => _usersFollowingMe ?? const [];
+  bool hasUsersFollowingMe() => _usersFollowingMe != null;
+
+  // "decks" field.
+  DocumentReference? _decks;
+  DocumentReference? get decks => _decks;
+  bool hasDecks() => _decks != null;
+
+  // "cardIDs" field.
+  List<String>? _cardIDs;
+  List<String> get cardIDs => _cardIDs ?? const [];
+  bool hasCardIDs() => _cardIDs != null;
+
+  // "interests" field.
+  List<String>? _interests;
+  List<String> get interests => _interests ?? const [];
+  bool hasInterests() => _interests != null;
+
+  // "prns" field.
+  List<String>? _prns;
+  List<String> get prns => _prns ?? const [];
+  bool hasPrns() => _prns != null;
+
+  // "p1" field.
+  String? _p1;
+  String get p1 => _p1 ?? '';
+  bool hasP1() => _p1 != null;
+
+  // "p2" field.
+  String? _p2;
+  String get p2 => _p2 ?? '';
+  bool hasP2() => _p2 != null;
+
+  // "p3" field.
+  String? _p3;
+  String get p3 => _p3 ?? '';
+  bool hasP3() => _p3 != null;
+
+  // "p4" field.
+  String? _p4;
+  String get p4 => _p4 ?? '';
+  bool hasP4() => _p4 != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -82,6 +133,16 @@ class UsersRecord extends FirestoreRecord {
     _intrestedMagic = snapshotData['intrested_magic'] as bool?;
     _intrestedDragonBall = snapshotData['intrested_dragon_ball'] as bool?;
     _bio = snapshotData['bio'] as String?;
+    _followingUsers = getDataList(snapshotData['following_users']);
+    _usersFollowingMe = getDataList(snapshotData['users_following_me']);
+    _decks = snapshotData['decks'] as DocumentReference?;
+    _cardIDs = getDataList(snapshotData['cardIDs']);
+    _interests = getDataList(snapshotData['interests']);
+    _prns = getDataList(snapshotData['prns']);
+    _p1 = snapshotData['p1'] as String?;
+    _p2 = snapshotData['p2'] as String?;
+    _p3 = snapshotData['p3'] as String?;
+    _p4 = snapshotData['p4'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -129,6 +190,11 @@ Map<String, dynamic> createUsersRecordData({
   bool? intrestedMagic,
   bool? intrestedDragonBall,
   String? bio,
+  DocumentReference? decks,
+  String? p1,
+  String? p2,
+  String? p3,
+  String? p4,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -143,6 +209,11 @@ Map<String, dynamic> createUsersRecordData({
       'intrested_magic': intrestedMagic,
       'intrested_dragon_ball': intrestedDragonBall,
       'bio': bio,
+      'decks': decks,
+      'p1': p1,
+      'p2': p2,
+      'p3': p3,
+      'p4': p4,
     }.withoutNulls,
   );
 
@@ -154,6 +225,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -164,7 +236,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.intrestedOnepiece == e2?.intrestedOnepiece &&
         e1?.intrestedMagic == e2?.intrestedMagic &&
         e1?.intrestedDragonBall == e2?.intrestedDragonBall &&
-        e1?.bio == e2?.bio;
+        e1?.bio == e2?.bio &&
+        listEquality.equals(e1?.followingUsers, e2?.followingUsers) &&
+        listEquality.equals(e1?.usersFollowingMe, e2?.usersFollowingMe) &&
+        e1?.decks == e2?.decks &&
+        listEquality.equals(e1?.cardIDs, e2?.cardIDs) &&
+        listEquality.equals(e1?.interests, e2?.interests) &&
+        listEquality.equals(e1?.prns, e2?.prns) &&
+        e1?.p1 == e2?.p1 &&
+        e1?.p2 == e2?.p2 &&
+        e1?.p3 == e2?.p3 &&
+        e1?.p4 == e2?.p4;
   }
 
   @override
@@ -179,7 +261,17 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.intrestedOnepiece,
         e?.intrestedMagic,
         e?.intrestedDragonBall,
-        e?.bio
+        e?.bio,
+        e?.followingUsers,
+        e?.usersFollowingMe,
+        e?.decks,
+        e?.cardIDs,
+        e?.interests,
+        e?.prns,
+        e?.p1,
+        e?.p2,
+        e?.p3,
+        e?.p4
       ]);
 
   @override

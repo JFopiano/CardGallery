@@ -1,5 +1,26 @@
 const axios = require("axios").default;
-const qs = require("qs");
+const qs = require('qs');
+
+async function _getPokemonCall(context, ffVariables) {
+  var cardType = ffVariables["cardType"];
+  var cardName = ffVariables["cardName"];
+  var apicallKey = ffVariables["apicallKey"];
+
+  var url = `https://apitcg.com/api/${cardType}/cards?property=name&value=${cardName}`;
+  var headers = {"x-api-key": `${apicallKey}`,"Access-Control-Allow-Origin": `*`,"Content-Type": `application/json`,};
+  var params = {};
+  var ffApiRequestBody = undefined;
+
+  return makeApiRequest({
+    method: "get",
+    url,
+    headers,
+    params,
+    returnBody: true,
+    isStreamingApi: false,
+  });
+}
+
 
 /// Helper functions to route to the appropriate API Call.
 
@@ -7,7 +28,9 @@ async function makeApiCall(context, data) {
   var callName = data["callName"] || "";
   var variables = data["variables"] || {};
 
-  const callMap = {};
+  const callMap = {
+    "GetPokemonCall": _getPokemonCall,
+  };
 
   if (!(callName in callMap)) {
     return {
@@ -36,7 +59,7 @@ async function makeApiRequest({
       url: url,
       headers: headers,
       params: params,
-      responseType: isStreamingApi ? "stream" : "json",
+      responseType: (isStreamingApi ? 'stream' : 'json'),
       ...(body && { data: body }),
     })
     .then((response) => {

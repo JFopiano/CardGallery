@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import '../cloud_functions/cloud_functions.dart';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,24 +15,22 @@ class GetPokemonCall {
   static Future<ApiCallResponse> call({
     String? cardType = 'pokemon',
     String? cardName = 'charizard',
+    String? apicallKey,
   }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'getPokemon',
-      apiUrl:
-          'https://apitcg.com/api/$cardType/cards?property=name&value=$cardName',
-      callType: ApiCallType.GET,
-      headers: {
-        'x-api-key':
-            '746ac8bfe3e075f45aaaf1b82233bd0aef7d162240e9e2bf683358cedbcb377e',
+    apicallKey ??= FFDevEnvironmentValues().apiKey;
+
+    final response = await makeCloudCall(
+      _kPrivateApiFunctionName,
+      {
+        'callName': 'GetPokemonCall',
+        'variables': {
+          'cardType': cardType,
+          'cardName': cardName,
+          'apicallKey': apicallKey,
+        },
       },
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: true,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
     );
+    return ApiCallResponse.fromCloudCallResponse(response);
   }
 
   static List<String>? cardNames(dynamic response) => (getJsonField(
@@ -41,7 +42,7 @@ class GetPokemonCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
-  static List<String>? cardImmage(dynamic response) => (getJsonField(
+  static List<String>? cardImage(dynamic response) => (getJsonField(
         response,
         r'''$.data[:].images.small''',
         true,
@@ -50,6 +51,44 @@ class GetPokemonCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
+  static List<String>? cardID(dynamic response) => (getJsonField(
+        response,
+        r'''$.data[:].id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static int? numOfResults(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.totalCount''',
+      ));
+  static dynamic cardImageL(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].images.large''',
+      );
+}
+
+class YesyCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'yesy',
+      apiUrl: 'https://apitcg.com/api/magic/cards',
+      callType: ApiCallType.GET,
+      headers: {
+        'x-api-key':
+            '0b9504894225251580f5a00b03c981f6b3e2b254ccc20a6c64ee239cab136ba4',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 class ApiPagingParams {

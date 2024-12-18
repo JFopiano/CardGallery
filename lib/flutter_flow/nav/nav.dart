@@ -1,18 +1,27 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
+
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -67,43 +76,54 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
+GoRouter createRouter(AppStateNotifier appStateNotifier, [Widget? entryPage]) =>
+    GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const ProfileBioWidget() : const HomePageWidget(),
+      navigatorKey: appNavigatorKey,
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? entryPage ?? NavBarPage()
+          : StartUpPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const ProfileBioWidget() : const HomePageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? entryPage ?? NavBarPage()
+              : StartUpPageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
+          name: 'StartUpPage',
+          path: '/startUpPage',
+          builder: (context, params) => StartUpPageWidget(),
         ),
         FFRoute(
           name: 'Preferences',
           path: '/preferences',
-          builder: (context, params) => const PreferencesWidget(),
+          builder: (context, params) => PreferencesWidget(
+            editing: params.getParam(
+              'editing',
+              ParamType.bool,
+            ),
+          ),
         ),
         FFRoute(
           name: 'LogIn',
           path: '/logIn',
-          builder: (context, params) => const LogInWidget(),
+          builder: (context, params) => LogInWidget(),
         ),
         FFRoute(
           name: 'Register',
           path: '/register',
-          builder: (context, params) => const RegisterWidget(),
+          builder: (context, params) => RegisterWidget(),
         ),
         FFRoute(
           name: 'ProfileBio',
           path: '/profileBio',
-          builder: (context, params) => const ProfileBioWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'ProfileBio')
+              : ProfileBioWidget(),
         ),
         FFRoute(
           name: 'resultCards',
@@ -122,12 +142,120 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ProfileEditPage',
           path: '/ProfileEditPage',
-          builder: (context, params) => const ProfileEditPageWidget(),
+          builder: (context, params) => ProfileEditPageWidget(),
         ),
         FFRoute(
-          name: 'testGal',
-          path: '/testGal',
-          builder: (context, params) => const TestGalWidget(),
+          name: 'searchPage',
+          path: '/searchPage',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'searchPage')
+              : SearchPageWidget(),
+        ),
+        FFRoute(
+          name: 'ProfileBioSEARCHED',
+          path: '/profileBioSEARCHED',
+          builder: (context, params) => ProfileBioSEARCHEDWidget(
+            otherUserPage: params.getParam(
+              'otherUserPage',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'testManualAdd',
+          path: '/testManualAdd',
+          builder: (context, params) => TestManualAddWidget(),
+        ),
+        FFRoute(
+          name: 'mainTestPage',
+          path: '/mainTestPage',
+          builder: (context, params) => MainTestPageWidget(),
+        ),
+        FFRoute(
+          name: 'HomePage',
+          path: '/homePage',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'HomePage')
+              : HomePageWidget(
+                  debug: params.getParam(
+                    'debug',
+                    ParamType.bool,
+                  ),
+                ),
+        ),
+        FFRoute(
+          name: 'UserCards',
+          path: '/userCards',
+          builder: (context, params) => UserCardsWidget(
+            usersCardRef: params.getParam(
+              'usersCardRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'DeckView',
+          path: '/deckView',
+          builder: (context, params) => DeckViewWidget(
+            userDeckRef: params.getParam(
+              'userDeckRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+            deckRef: params.getParam(
+              'deckRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['decks'],
+            ),
+            cardList: params.getParam<DocumentReference>(
+              'cardList',
+              ParamType.DocumentReference,
+              isList: true,
+              collectionNamePath: ['cardsv2'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'userDecks',
+          path: '/userDecks',
+          builder: (context, params) => UserDecksWidget(
+            userDecksRef: params.getParam(
+              'userDecksRef',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Followers',
+          path: '/follower',
+          builder: (context, params) => FollowersWidget(
+            userFollowers: params.getParam(
+              'userFollowers',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Following',
+          path: '/following',
+          builder: (context, params) => FollowingWidget(
+            userFollowing: params.getParam(
+              'userFollowing',
+              ParamType.DocumentReference,
+              isList: false,
+              collectionNamePath: ['users'],
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -298,7 +426,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/homePage';
+            return '/startUpPage';
           }
           return null;
         },
@@ -365,7 +493,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

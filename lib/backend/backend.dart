@@ -6,7 +6,8 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
-import 'schema/cards_record.dart';
+import 'schema/cardsv2_record.dart';
+import 'schema/decks_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart' hide Order;
@@ -16,7 +17,8 @@ export 'schema/util/firestore_util.dart';
 export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
-export 'schema/cards_record.dart';
+export 'schema/cardsv2_record.dart';
+export 'schema/decks_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -55,38 +57,75 @@ Future<List<UsersRecord>> queryUsersRecordOnce({
       singleRecord: singleRecord,
     );
 
-/// Functions to query CardsRecords (as a Stream and as a Future).
-Future<int> queryCardsRecordCount({
+/// Functions to query Cardsv2Records (as a Stream and as a Future).
+Future<int> queryCardsv2RecordCount({
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      CardsRecord.collection,
+      Cardsv2Record.collection,
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<CardsRecord>> queryCardsRecord({
+Stream<List<Cardsv2Record>> queryCardsv2Record({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      CardsRecord.collection,
-      CardsRecord.fromSnapshot,
+      Cardsv2Record.collection,
+      Cardsv2Record.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<CardsRecord>> queryCardsRecordOnce({
+Future<List<Cardsv2Record>> queryCardsv2RecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      CardsRecord.collection,
-      CardsRecord.fromSnapshot,
+      Cardsv2Record.collection,
+      Cardsv2Record.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query DecksRecords (as a Stream and as a Future).
+Future<int> queryDecksRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      DecksRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<DecksRecord>> queryDecksRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      DecksRecord.collection,
+      DecksRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<DecksRecord>> queryDecksRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      DecksRecord.collection,
+      DecksRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
@@ -211,7 +250,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   } else {
     docSnapshot = await query.get();
   }
-  getDocs(QuerySnapshot s) => s.docs
+  final getDocs = (QuerySnapshot s) => s.docs
       .map(
         (d) => safeGet(
           () => recordBuilder(d),
